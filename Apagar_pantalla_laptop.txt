@@ -1,5 +1,5 @@
 ++ Método_1
---- setterm --blank 1 --powerdown 2
+--- setterm --blank 1 --powerdown 2 (No ejecutar el comando via ssh)
 --- sudo mkdir /home/USER/.boot-scripts/
 --- sudo nano /home/USER/.boot-scripts/screen-off.sh
 --- Pegar lo siguiente en el archivo:
