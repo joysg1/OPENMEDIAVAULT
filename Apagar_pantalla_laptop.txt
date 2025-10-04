@@ -1,0 +1,35 @@
+++ Método_1
+--- setterm --blank 1 --powerdown 2
+--- sudo mkdir /home/USER/.boot-scripts/
+--- sudo nano /home/USER/.boot-scripts/screen-off.sh
+--- Pegar lo siguiente en el archivo:
+#!/bin/bash
+setterm --blank 1 --powerdown 2
+--- Ctrl +O Ctrl +X
+--- sudo nano /etc/systemd/system/screen-off.service
+--- Pegar lo siguiente en el archivo:
+[Unit]
+Description=Blank screen after 1 min and turn it off after 2 min. Any keypress will turn it back on.
+After=ssh.service
+
+[Service]
+Type=oneshot
+Environment=TERM=linux
+StandardOutput=tty
+TTYPath=/dev/console
+ExecStart=/home/USER/.boot-scripts/screen-off.sh
+
+[Install]
+WantedBy=local.target
+
+--- Ctrl +O Ctrl +X
+--- sudo chmod +x /home/USER/.boot-scripts/screen-off.sh
+--- sudo chmod +x /etc/systemd/system/screen-off.service
+--- sudo systemctl start screen-off.service
+--- sudo systemctl enable screen-off.service
+
+++ Método_2
+--- sudo nano /etc/default/grub
+--- GRUB_CMDLINE_LINUX_DEFAULT="quiet splash consoleblank=60" (60 = 60 segundos)
+--- sudo update-grub
+--- sudo reboot 
